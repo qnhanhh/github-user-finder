@@ -1,21 +1,13 @@
 import { SunIcon } from "@heroicons/react/24/outline";
 import { MoonIcon } from "@heroicons/react/24/solid";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import Logo from "./Logo";
 
 export default function Navbar() {
   const { systemTheme, theme, setTheme } = useTheme();
 
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const renderThemeChanger = () => {
     const currentTheme = theme === "system" ? systemTheme : theme;
-    if (!mounted) return null;
 
     if (currentTheme == "dark") {
       return (
