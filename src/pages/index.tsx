@@ -2,25 +2,20 @@ import Loading from "@/components/Loading";
 import Navbar from "@/components/Navbar";
 import SearchBar from "@/components/SearchBar";
 import User from "@/components/User";
+import { useDataStore, useUsernameStore } from "@/stores/userStore";
 import Head from "next/head";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  let api = "https://api.github.com/users/octocat";
-
-  const userRef = useRef(null);
-  const [userName, setUserName] = useState("");
-  const [data, setData] = useState("");
+  const username = useUsernameStore((state) => state.username);
+  const { data, setData } = useDataStore();
   const [isLoading, setLoading] = useState(false);
-
-  const handleClick = () => {
-    setUserName(userRef.current.value);
-  };
 
   useEffect(() => {
     setLoading(true);
-    if (userName) {
-      api = `https://api.github.com/users/${userName}`;
+    let api = "https://api.github.com/users/octocat";
+    if (username) {
+      api = `https://api.github.com/users/${username}`;
     }
 
     fetch(api)
@@ -29,7 +24,7 @@ export default function Home() {
         setData(data);
         setLoading(false);
       });
-  }, [userName]);
+  }, [username]);
 
   if (!data) <p>No Profile data.</p>;
 
@@ -45,12 +40,8 @@ export default function Home() {
         <Loading />
       ) : (
         <>
-          <SearchBar
-            userName={userName}
-            handleClick={handleClick}
-            userRef={userRef}
-          />
-          <User data={data} />
+          <SearchBar />
+          <User />
         </>
       )}
     </div>

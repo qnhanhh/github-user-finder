@@ -1,10 +1,9 @@
+import { useDataStore } from "@/stores/userStore";
 import Image from "next/image";
 
-type avatarType = {
-  imageUrl: string;
-};
-
-export default function Avatar({ imageUrl }: avatarType) {
+export default function Avatar() {
+  const data = useDataStore((state) => state.data);
+  const imageUrl = data?.avatar_url;
   return (
     <div className="w-[120px] h-[120px] ml-8 ring-[5px] ring-[#3b52d4] dark:ring-[#053bff] rounded-full">
       {imageUrl ? (

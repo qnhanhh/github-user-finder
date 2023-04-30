@@ -1,11 +1,10 @@
-type bioType = {
-  bio: string;
-};
+import { useDataStore } from "@/stores/userStore";
 
-export default function UserBio({ bio }: bioType) {
+export default function UserBio() {
+  const data = useDataStore((state) => state.data);
   return (
     <p className="font-mono text-sm font-medium text-gray-800 dark:text-gray-300 text-center">
-      Bio-{bio === null ? "Not Available" : bio}
+      Bio-{data?.bio ? data.bio : "Not Available"}
     </p>
   );
 }
