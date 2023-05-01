@@ -3,7 +3,12 @@ import Avatar from "./Avatar";
 
 export default function UserProfile() {
   const data = useDataStore((state) => state.data);
-  const date = data?.created_at.toDateString();
+  const rawDate = data?.created_at
+    .toString()
+    .slice(0, 10)
+    .split("-")
+    .map((item) => parseInt(item)) || [0, 0, 0];
+  const date = new Date(rawDate[0], rawDate[1], rawDate[2]).toDateString();
 
   return (
     <div className=" flex w-full items-center space-x-4  md:justify-evenly md:space-x-6">
