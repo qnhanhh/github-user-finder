@@ -17,7 +17,13 @@ export default function UserProfile() {
         <h2 className="w-32 md:w-44 font-mono text-lg font-bold text-gray-800 dark:text-gray-50 md:text-2xl">
           {data?.name}{" "}
           <span className="inline-block font-mono text-sm text-blue-400">
-            {data?.login && `@${data?.login ? data?.login : "Not Available"}`}
+            {data?.login ? (
+              <a target="_blank" href={`https://github.com/${data.login}`}>
+                @{data.login}
+              </a>
+            ) : (
+              "Not Available"
+            )}
           </span>
         </h2>
         {data?.login && (
